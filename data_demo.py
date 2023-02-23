@@ -39,13 +39,15 @@ def tasks():
     #build_tables(conn)
     sample_login_table(conn)
 
-def sample_login_table(conn):
+def sample_login_table(conn): #Initialisation
     with conn.cursor() as cur:
         cur.execute(""" CREATE TABLE IF NOT EXISTS USERS (
         id SERIAL PRIMARY KEY,
         username VARCHAR(50) UNIQUE NOT NULL,
-        password VARCHAR(50) NOT NULL);
-        """)
+        password VARCHAR(50) NOT NULL,
+        hash VARBINARY(50),
+        salt VARBINARY(50));
+        """) #TODO: work out out to use a binary type to transfer from 'password' to 'hash' and 'salt'
         conn.commit()
 
         #Insert some sample users

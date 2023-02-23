@@ -1,12 +1,22 @@
 from flask import Flask, render_template, request, session, redirect, url_for
 import data_demo
 import os
+from functools import wraps
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ["SECRET_KEY"]
 
+def login_required(f):
+    '''Edited from https://flask.palletsprojects.com/en/2.2.x/patterns/viewdecorators/'''
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if session.get('user_id') is None:
+            return redirect(url_for('login', next=request.url))
+        return f(*args, **kwargs)
+    return decorated_function
 
 @app.route('/')
+@login_required
 def home():  # put application's code here
     return 'Hello World!'
 
