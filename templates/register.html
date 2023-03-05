@@ -9,6 +9,11 @@
     {% if error %}
         <p style="colour: red;">{{ error }}</p>
     {% endif %}
+    {% if password_features %}
+        {% for password_feature in password_features %}
+            <p style="colour: red;">{{ password_feature }}</p>
+        {% endfor %}
+    {% endif %}
     <form method="post" action="/register">
         <label>Username</label>
         <input type="text" name="username" required>

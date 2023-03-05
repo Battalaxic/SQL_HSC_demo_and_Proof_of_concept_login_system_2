@@ -44,10 +44,8 @@ def sample_login_table(conn): #Initialisation
         cur.execute(""" CREATE TABLE IF NOT EXISTS USERS (
         id SERIAL PRIMARY KEY,
         username VARCHAR(50) UNIQUE NOT NULL,
-        password VARCHAR(50) NOT NULL,
-        hash VARBINARY(50),
-        salt VARBINARY(50));
-        """) #TODO: work out out to use a binary type to transfer from 'password' to 'hash' and 'salt'
+        password VARCHAR(60) NOT NULL);
+        """)
         conn.commit()
 
         #Insert some sample users
@@ -55,3 +53,4 @@ def sample_login_table(conn): #Initialisation
         #conn.commit()
 
 tasks()
+#TODO: create a subroutine to automate the filling in of the user table of teacher names
